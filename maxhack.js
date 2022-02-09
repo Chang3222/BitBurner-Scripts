@@ -30,7 +30,10 @@ export async function main(ns) {
 			}
 			while (ns.getServerMoneyAvailable(target) > 0) await ns.asleep(1000);
 			for (let server of targets) {
-				if (server == "home") continue;
+				if (server == "home"){
+					ns.kill("hack.js", "home");
+					continue;
+				}
 				ns.killall(server);
 			}
 		}
