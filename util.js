@@ -1,43 +1,3 @@
-export function swap(items, leftIndex, rightIndex) {
-	var temp = items[leftIndex];
-	items[leftIndex] = items[rightIndex];
-	items[rightIndex] = temp;
-}
-
-export function partition(ns, items, left, right) {
-	var pivot = ns.getServerRequiredHackingLevel(items[Math.floor((right + left) / 2)]),
-		i = left,
-		j = right;
-	while (i <= j) {
-		while (ns.getServerRequiredHackingLevel(items[i]) < pivot) {
-			i++;
-		}
-		while (ns.getServerRequiredHackingLevel(items[j]) > pivot) {
-			j--;
-		}
-		if (i <= j) {
-			swap(items, i, j);
-			i++;
-			j--;
-		}
-	}
-	return i;
-}
-
-export function quickSort(ns, items, left, right) {
-	var index;
-	if (items.length > 1) {
-		index = partition(ns, items, left, right);
-		if (left < index - 1) {
-			quickSort(ns, items, left, index - 1);
-		}
-		if (index < right) {
-			quickSort(ns, items, index, right);
-		}
-	}
-	return items;
-}
-
 export function getServers(ns, root) {
 	const list = [root];
 	const queue = [root];
@@ -49,7 +9,8 @@ export function getServers(ns, root) {
 			list.push(s);
 		}
 	}
-	return quickSort(ns, list, 0, list.length - 1);
+	list.sort();
+	return list;
 };
 
 export function getOpenServers(ns, root) {
